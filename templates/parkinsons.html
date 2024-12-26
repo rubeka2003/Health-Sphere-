@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parkinson's Disease Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            color: white;
+            line-height: 1.6;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav h1 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        nav .home-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav .home-link:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .prediction-card {
+            text-align: center;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        input:focus {
+            border: 2px solid #43cea2;
+            outline: none;
+        }
+
+        .predict-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 18px;
+            color: white;
+            background: #43cea2;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .predict-btn:hover {
+            background: #185a9d;
+            transform: scale(1.05);
+        }
+
+        .result-card {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #43cea2;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .predict-btn {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Parkinson's Disease Prediction</h1>
+        <a href="/" class="home-link">Home</a>
+    </nav>
+
+    <div class="container">
+        <div class="prediction-card">
+            <h2>Enter the Details Below</h2>
+            <form action="/predict_parkinsons" method="post">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>MDVP:Fo(Hz)</label>
+                        <input type="number" step="any" name="fo" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:Fhi(Hz)</label>
+                        <input type="number" step="any" name="fhi" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:Flo(Hz)</label>
+                        <input type="number" step="any" name="flo" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:Jitter(%)</label>
+                        <input type="number" step="any" name="jitter_percent" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:Jitter(Abs)</label>
+                        <input type="number" step="any" name="jitter_abs" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:RAP</label>
+                        <input type="number" step="any" name="rap" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:PPQ</label>
+                        <input type="number" step="any" name="ppq" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Jitter:DDP</label>
+                        <input type="number" step="any" name="ddp" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:Shimmer</label>
+                        <input type="number" step="any" name="shimmer" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:Shimmer(dB)</label>
+                        <input type="number" step="any" name="shimmer_db" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Shimmer:APQ3</label>
+                        <input type="number" step="any" name="apq3" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Shimmer:APQ5</label>
+                        <input type="number" step="any" name="apq5" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MDVP:APQ</label>
+                        <input type="number" step="any" name="apq" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Shimmer:DDA</label>
+                        <input type="number" step="any" name="dda" required>
+                    </div>
+                    <div class="input-group">
+                        <label>NHR</label>
+                        <input type="number" step="any" name="nhr" required>
+                    </div>
+                    <div class="input-group">
+                        <label>HNR</label>
+                        <input type="number" step="any" name="hnr" required>
+                    </div>
+                    <div class="input-group">
+                        <label>RPDE</label>
+                        <input type="number" step="any" name="rpde" required>
+                    </div>
+                    <div class="input-group">
+                        <label>DFA</label>
+                        <input type="number" step="any" name="dfa" required>
+                    </div>
+                    <div class="input-group">
+                        <label>spread1</label>
+                        <input type="number" step="any" name="spread1" required>
+                    </div>
+                    <div class="input-group">
+                        <label>spread2</label>
+                        <input type="number" step="any" name="spread2" required>
+                    </div>
+                    <div class="input-group">
+                        <label>D2</label>
+                        <input type="number" step="any" name="d2" required>
+                    </div>
+                    <div class="input-group">
+                        <label>PPE</label>
+                        <input type="number" step="any" name="ppe" required>
+                    </div>
+                </div>
+                <button type="submit" class="predict-btn">Predict Parkinson's</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result-card">
+                <h3>Result: {{ prediction }}</h3>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

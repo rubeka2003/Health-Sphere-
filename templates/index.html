@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            color: white;
+            line-height: 1.6;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav h1 {
+            font-size: 28px;
+            font-weight: bold;
+            animation: slideDown 1s ease-in-out;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+        nav ul li {
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        main h2 {
+            font-size: 36px;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        main p {
+            font-size: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 1rem;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 16px;
+            margin-bottom: 1rem;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: #43cea2;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .card a:hover {
+            background: #185a9d;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Multiple Disease Prediction System</h1>
+        <ul>
+            <li><a href="/diabetes">Diabetes Prediction</a></li>
+            <li><a href="/heart">Heart Disease Prediction</a></li>
+            <li><a href="/parkinsons">Parkinsons Prediction</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Welcome to Health Assistant</h2>
+        <p>Choose a prediction system from the navigation menu or explore the options below.</p>
+        <div class="card-container">
+            <div class="card">
+                <h3>Diabetes Prediction</h3>
+                <p>Analyze key health metrics to determine your risk of diabetes.</p>
+                <a href="/diabetes">Get Started</a>
+            </div>
+            <div class="card">
+                <h3>Heart Disease Prediction</h3>
+                <p>Evaluate your cardiovascular health and identify potential risks.</p>
+                <a href="/heart">Get Started</a>
+            </div>
+            <div class="card">
+                <h3>Parkinson's Prediction</h3>
+                <p>Use advanced algorithms to assess the likelihood of Parkinson's.</p>
+                <a href="/parkinsons">Get Started</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 Health Assistant | Your health, our priority.</p>
+    </footer>
+</body>
+</html>
